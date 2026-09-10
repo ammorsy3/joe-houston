@@ -3,7 +3,6 @@ import type { CSSProperties } from "react";
 
 import { siteConfig } from "@/app/lib/site-config";
 import { closingDate, telHref } from "@/app/lib/utils";
-import { AuraGroup } from "@/components/ui/Aura";
 import { Button } from "@/components/ui/Button";
 
 /** Our fastest close, and the date it lands on if someone calls today. */
@@ -96,38 +95,35 @@ export function Hero() {
             />
             {/*
               The gold aura — a light source that rides the card's edge,
-              driven by scroll for everyone and by the pointer when there is
-              one (AuraGroup). It has to sit on a wrapper OUTSIDE the
-              overflow-hidden frame below, or its ring and bloom get clipped.
+              swept along by scroll as the section crosses the viewport. It
+              has to sit on a wrapper OUTSIDE the overflow-hidden frame
+              below, or its ring and bloom get clipped.
             */}
-            <AuraGroup>
-              <div
-                className="aura rounded-card"
-                data-aura
-                style={{ "--aura-size": "30rem" } as CSSProperties}
-              >
-                {/*
-                  overflow-hidden on this frame is what makes .hero-media's
-                  scroll-linked zoom (see globals.css) read as the photo
-                  growing inside a fixed window rather than the whole card
-                  resizing.
-                */}
-                <div className="relative aspect-[4/5] overflow-hidden rounded-card border border-hairline shadow-panel">
-                  <div
-                    aria-hidden="true"
-                    className="gilded absolute inset-x-0 top-0 z-10 h-[3px]"
-                  />
-                  <Image
-                    src="/images/hero-house.jpg"
-                    alt="A Central Texas home with a limestone facade and a welcoming front porch, shaded by live oak trees"
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 26rem, 100vw"
-                    className="hero-media object-cover"
-                  />
-                </div>
+            <div
+              className="aura rounded-card"
+              style={{ "--aura-size": "30rem" } as CSSProperties}
+            >
+              {/*
+                overflow-hidden on this frame is what makes .hero-media's
+                scroll-linked zoom (see globals.css) read as the photo
+                growing inside a fixed window rather than the whole card
+                resizing.
+              */}
+              <div className="relative aspect-[4/5] overflow-hidden rounded-card border border-hairline shadow-panel">
+                <div
+                  aria-hidden="true"
+                  className="gilded absolute inset-x-0 top-0 z-10 h-[3px]"
+                />
+                <Image
+                  src="/images/hero-house.jpg"
+                  alt="A Central Texas home with a limestone facade and a welcoming front porch, shaded by live oak trees"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 26rem, 100vw"
+                  className="hero-media object-cover"
+                />
               </div>
-            </AuraGroup>
+            </div>
           </div>
         </div>
       </div>

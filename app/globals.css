@@ -230,21 +230,13 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Aura — a moving light source on the edge of a card.
+   Aura — a light source on the edge of a card, swept along by scroll.
 
-   The light has two drivers, and scroll is the primary one:
-
-   1. SCROLL (everyone).  `--sweep` is animated down the card by its own view
-      timeline, so the light passes over each card as it crosses the viewport.
-      This is what phone visitors get, and desktop visitors who scroll without
-      touching the mouse — which is most of them.
-   2. POINTER (when there is one).  AuraGroup writes `--px`/`--py` inline on
-      each card, and those take priority through the var() fallback chain
-      below. Removing them on pointerleave hands control back to scroll.
-
-   Custom properties set by an animation cannot be overridden by inline style,
-   so the two drivers deliberately use different variables and are resolved
-   here rather than fighting in the cascade.
+   `--sweep` is animated down the card by its own view timeline, so the light
+   passes over each card as it crosses the viewport. It is not interactive —
+   nothing reacts to the pointer, so tapping or dragging on a card does not
+   move the light. (`--ax`/`--ay` keep a `--px`/`--py` fallback slot only so
+   the resolution below stays robust; those vars are never set.)
 
    Where scroll-driven animation or @property is unsupported, or the visitor
    asked for reduced motion, `--sweep` simply stays at its 50% initial value
@@ -267,7 +259,7 @@
 
 .aura {
   --aura-size: 17rem;
-  /* Resolved light position: pointer if present, else the scroll sweep. */
+  /* Light position: centred horizontally, swept vertically by scroll. */
   --ax: var(--px, 50%);
   --ay: var(--py, var(--sweep, 50%));
   position: relative;

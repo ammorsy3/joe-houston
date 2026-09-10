@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 
-import { AuraGroup } from "@/components/ui/Aura";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Tag } from "@/components/ui/Tag";
 
@@ -39,7 +38,7 @@ export function WhatWeBuy() {
     <section
       id="what-we-buy"
       aria-labelledby="what-we-buy-heading"
-      className="grain relative overflow-hidden border-t border-hairline bg-gold-soft"
+      className="grain gold-gradient relative overflow-hidden border-t border-hairline"
     >
       <div aria-hidden="true" className="gilded absolute inset-x-0 top-0 h-[2px]" />
       <div
@@ -53,13 +52,13 @@ export function WhatWeBuy() {
           id="what-we-buy-heading"
           title="What we buy"
           subhead="We are not a listing service and we are not agents. We are the buyer, using our own funds, which is why the condition of the property is genuinely not a problem."
+          subheadClassName="text-ink/85"
         />
 
-        <AuraGroup className="mt-14 grid gap-6 md:grid-cols-2 lg:gap-8">
+        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:gap-8">
           {CARDS.map((card, index) => (
             <article
               key={card.title}
-              data-aura
               style={{ "--reveal-delay": `${index * 100}ms` } as CSSProperties}
               className="aura lift reveal flex flex-col rounded-card border border-hairline bg-paper shadow-card transition-colors hover:border-[color-mix(in_srgb,var(--color-gold)_40%,var(--color-hairline))]"
             >
@@ -92,7 +91,7 @@ export function WhatWeBuy() {
               </div>
             </article>
           ))}
-        </AuraGroup>
+        </div>
       </div>
     </section>
   );

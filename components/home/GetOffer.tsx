@@ -12,7 +12,7 @@ export function GetOffer() {
     <section
       id="offer"
       aria-labelledby="get-offer-heading"
-      className="grain relative scroll-mt-24 overflow-hidden border-t border-hairline bg-gold-soft"
+      className="grain gold-gradient relative scroll-mt-24 overflow-hidden border-t border-hairline"
     >
       <div aria-hidden="true" className="gilded absolute inset-x-0 top-0 h-[2px]" />
       <div
@@ -28,6 +28,7 @@ export function GetOffer() {
             align="center"
             title="Ready to see what we'd offer?"
             subhead="Send the address and we'll call with a real, no-obligation number within 24 hours. Rather talk it through first? Call us directly."
+            subheadClassName="text-ink/85"
           />
 
           <div className="mt-8 flex justify-center">
@@ -63,7 +64,7 @@ export function GetOffer() {
                 className="object-cover"
               />
             </div>
-            <figcaption className="mt-4 text-center text-[0.9375rem] leading-relaxed text-body">
+            <figcaption className="mt-4 text-center text-[0.9375rem] leading-relaxed text-ink/85">
               <span className="block font-semibold text-ink">Joe Houston</span>
               Private real estate investor, {siteConfig.market.short}
             </figcaption>

@@ -10,6 +10,12 @@ type Props = {
   /** Id for the heading, so its section can point `aria-labelledby` at it. */
   id?: string;
   className?: string;
+  /**
+   * Extra classes for the subhead `<p>` — mainly to re-colour it when the
+   * heading sits on a filled gold section, where `text-body` would not clear
+   * contrast.
+   */
+  subheadClassName?: string;
 };
 
 /**
@@ -24,6 +30,7 @@ export function SectionHeading({
   align = "left",
   id,
   className,
+  subheadClassName,
 }: Props) {
   const Heading = as;
   const centered = align === "center";
@@ -47,6 +54,7 @@ export function SectionHeading({
           className={cn(
             "mt-5 max-w-[58ch] text-[1.0625rem] leading-[1.7] text-body",
             centered && "mx-auto",
+            subheadClassName,
           )}
         >
           {subhead}

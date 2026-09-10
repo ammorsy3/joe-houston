@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 
 import { closingDate } from "@/app/lib/utils";
-import { AuraGroup } from "@/components/ui/Aura";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function HowItWorks() {
@@ -44,12 +43,10 @@ export function HowItWorks() {
           subhead="No listing, no showings, no strangers walking through the house on a Sunday afternoon."
         />
 
-        <AuraGroup className="mt-14">
-          <ol className="grid gap-5 md:grid-cols-3">
+        <ol className="mt-14 grid gap-5 md:grid-cols-3">
           {steps.map((step, index) => (
             <li
               key={step.title}
-              data-aura
               style={{ "--reveal-delay": `${index * 100}ms` } as CSSProperties}
               className="aura lift reveal rounded-card border border-hairline bg-paper p-7 shadow-card lg:p-9"
             >
@@ -70,8 +67,7 @@ export function HowItWorks() {
               <p className="mt-3 text-[0.9375rem] leading-[1.7] text-body">{step.body}</p>
             </li>
             ))}
-          </ol>
-        </AuraGroup>
+        </ol>
       </div>
     </section>
   );

@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 
-import { AuraGroup } from "@/components/ui/Aura";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 /*
@@ -47,11 +46,10 @@ export function Testimonials() {
           subhead="Most of the owners we work with were not planning to sell this way. They needed it done, and done predictably."
         />
 
-        <AuraGroup className="mt-14 grid gap-5 lg:grid-cols-3">
+        <div className="mt-14 grid gap-5 lg:grid-cols-3">
           {TESTIMONIALS.map((item, index) => (
             <figure
               key={item.name}
-              data-aura
               style={{ "--reveal-delay": `${index * 100}ms` } as CSSProperties}
               className="aura lift reveal flex flex-col rounded-card border border-hairline bg-paper p-7 shadow-card lg:p-9"
             >
@@ -77,7 +75,7 @@ export function Testimonials() {
               </figcaption>
             </figure>
           ))}
-        </AuraGroup>
+        </div>
       </div>
     </section>
   );
