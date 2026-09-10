@@ -59,7 +59,13 @@ export function Comparison() {
           subhead={`We are not the right answer for everyone. If the house is in good shape and you can wait out a listing, an agent will net you more — and we will tell you so on the call. This is what you are choosing between.`}
         />
 
-        <div className="mt-14 overflow-hidden rounded-card border border-hairline bg-paper shadow-panel">
+        {/*
+          The aura sits on this outer wrapper, not the frame below — the
+          frame keeps overflow-hidden to clip the table's own corners, which
+          would also clip the aura's ring and bloom.
+        */}
+        <div className="aura mt-14 rounded-card">
+        <div className="overflow-hidden rounded-card border border-gold bg-paper shadow-panel">
           {/* Desktop: a real table. */}
           <table className="hidden w-full border-collapse text-left md:table">
             <caption className="sr-only">
@@ -122,6 +128,7 @@ export function Comparison() {
               </div>
             ))}
           </div>
+        </div>
         </div>
       </div>
     </section>
