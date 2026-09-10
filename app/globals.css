@@ -1,0 +1,463 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Tokens — defined once. Components use the generated utilities; no hex in JSX.
+
+   The accent is gold, so the neutrals are warm: a limestone section ground
+   (the Hill Country building stone) rather than another near-white, which is
+   what lets a white card actually read as lifted off the page.
+   --------------------------------------------------------------------------- */
+@theme {
+  --color-paper: #ffffff;
+  --color-limestone: #edeae4;
+
+  --color-ink: #1a1a1a;
+  --color-body: #5f5f5f;
+
+  /* Gold is used as solid mass — filled blocks, filled buttons, a filled
+     table column. Ink sits on it at 7.7:1. */
+  --color-gold: #d4a537;
+  /* Gold dark enough to carry text: 6.2:1 on paper, 5.2:1 on limestone. */
+  --color-gold-deep: #7a5c18;
+  /* Tint for panels behind text. */
+  --color-gold-soft: #f7eeda;
+
+  --color-hairline: #ddd8ce;
+
+  /* Warm near-black for photo scrims. Never cool/grey — a grey scrim over a
+     warm page reads as a generic "dark mode" rectangle dropped on top. */
+  --color-charcoal: #2b2420;
+  /* The brightest point of a gradient or glow — not calibrated for text,
+     only for the hottest pixel of a highlight. */
+  --color-gold-bright: #f0cc72;
+
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), Georgia, "Times New Roman", serif;
+
+  --radius-card: 0.5rem;
+
+  --shadow-card: 0 1px 2px rgba(26, 26, 26, 0.04), 0 12px 28px -14px rgba(26, 26, 26, 0.14);
+  --shadow-panel: 0 2px 6px rgba(26, 26, 26, 0.05), 0 32px 64px -24px rgba(26, 26, 26, 0.22);
+  /* One step past --shadow-card, for elements that lift on hover instead of
+     just darkening — the outer shadow carries a little of the gold's warmth
+     rather than reading as plain ink. */
+  --shadow-lift: 0 4px 10px rgba(26, 26, 26, 0.07),
+    0 26px 48px -20px color-mix(in srgb, var(--color-gold) 32%, rgba(26, 26, 26, 0.3));
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Display type
+
+   Fraunces is set heavy and tight — the scale is what carries the page, so the
+   headings need no accent colour, eyebrow or italicised word to do the work.
+   --------------------------------------------------------------------------- */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 144;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+
+.display-sm {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 36;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+}
+
+/* Tabular figures wherever numbers sit in a column and must align. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------------------
+   Motion — a load moment for the hero, and a scroll reveal for everything
+   below it. Everything here is opt-in per element and guarded for reduced
+   motion.
+   --------------------------------------------------------------------------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+}
+
+/*
+  Reveal — an element fades up into place as it enters the viewport. Driven by
+  ScrollReveal.tsx (a single IntersectionObserver mounted once in the root
+  layout, so every `.reveal` element on every page gets picked up
+  automatically — nothing per-section to wire up) rather than each element's
+  own scroll (view) timeline, which is still inconsistent across browsers.
+  The hidden starting state only exists inside the same guard that turns the
+  transition on, so a visitor who asked for reduced motion gets the element
+  visible from the start — nobody gets a section stuck invisible, including
+  if JS is slow to attach.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition:
+      opacity 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+      transform 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+  Hero media — a scroll-linked zoom on the hero photo, the same view-timeline
+  technique as .aura's sweep rather than a scroll-hijacking library: as the
+  hero scrolls past, the image visibly grows, so it feels alive without ever
+  taking over the scroll wheel or hiding the headline/CTA behind a gesture.
+  The range is deliberately short (cover 0%-55%) so the effect is obvious
+  within the first half-screen of scrolling rather than spread thin across
+  the whole hero. Scoped to the image itself (inside the overflow-hidden
+  frame), never the whole section.
+*/
+@keyframes hero-media-grow {
+  from {
+    transform: scale(0.82);
+  }
+  to {
+    transform: scale(1.22);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .hero-media {
+      animation: hero-media-grow linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 55%;
+    }
+  }
+}
+
+/*
+  Marquee — a strip of benefits drifting right in an endless loop. The track
+  is rendered twice in the DOM (the second copy motion-reduce:hidden and
+  aria-hidden) so the loop point is invisible: translateX(-50%) is exactly
+  one copy's width, so the moment it snaps back to -50% and restarts is
+  pixel-identical to the frame before it. A sr-only summary carries the same
+  content once for assistive tech elsewhere in the component, since an
+  animated, duplicated track would only confuse it.
+*/
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track {
+    animation: marquee-right 24s linear infinite;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Aura — a moving light source on the edge of a card.
+
+   The light has two drivers, and scroll is the primary one:
+
+   1. SCROLL (everyone).  `--sweep` is animated down the card by its own view
+      timeline, so the light passes over each card as it crosses the viewport.
+      This is what phone visitors get, and desktop visitors who scroll without
+      touching the mouse — which is most of them.
+   2. POINTER (when there is one).  AuraGroup writes `--px`/`--py` inline on
+      each card, and those take priority through the var() fallback chain
+      below. Removing them on pointerleave hands control back to scroll.
+
+   Custom properties set by an animation cannot be overridden by inline style,
+   so the two drivers deliberately use different variables and are resolved
+   here rather than fighting in the cascade.
+
+   Where scroll-driven animation or @property is unsupported, or the visitor
+   asked for reduced motion, `--sweep` simply stays at its 50% initial value
+   and the card keeps a soft centred glow. Nobody gets a dead card.
+   --------------------------------------------------------------------------- */
+@property --sweep {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+
+@keyframes aura-sweep {
+  from {
+    --sweep: -20%;
+  }
+  to {
+    --sweep: 120%;
+  }
+}
+
+.aura {
+  --aura-size: 17rem;
+  /* Resolved light position: pointer if present, else the scroll sweep. */
+  --ax: var(--px, 50%);
+  --ay: var(--py, var(--sweep, 50%));
+  position: relative;
+  isolation: isolate;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .aura {
+      animation: aura-sweep linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+.aura::before,
+.aura::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/*
+  The lit edge. The negative inset puts it over the card's own border rather
+  than inside it, and z-index 3 keeps it above the content so an opaque child
+  (an image) can never cover the ring.
+
+  On a light card the hotspot has to get RICHER toward the light, not paler —
+  a pale gold edge on white has almost no luminance contrast and disappears.
+*/
+.aura::before {
+  inset: -1.5px;
+  padding: 1.5px;
+  z-index: 3;
+  background: radial-gradient(
+    var(--aura-size) circle at var(--ax) var(--ay),
+    var(--color-gold-deep),
+    var(--color-gold) 26%,
+    color-mix(in srgb, var(--color-gold) 45%, transparent) 48%,
+    transparent 74%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+/* The bloom: warmth on the card face, fading out past its edge. */
+.aura::after {
+  inset: -1.25rem;
+  z-index: 0;
+  filter: blur(0.75rem);
+  background: radial-gradient(
+    calc(var(--aura-size) * 1.15) circle at var(--ax) var(--ay),
+    color-mix(in srgb, var(--color-gold) 26%, transparent),
+    transparent 64%
+  );
+}
+
+/* Content sits above the bloom and below the lit ring. */
+.aura > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------------------------------------------------------------------------
+   Grain — a barely-there tooth over flat fills, so large areas of gold and
+   limestone read as printed rather than as a swatch.
+   --------------------------------------------------------------------------- */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
+}
+
+.grain > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* A gilded edge: gold that catches the light along its length. */
+.gilded {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--color-gold) 70%, var(--color-paper)),
+    var(--color-gold) 34%,
+    color-mix(in srgb, var(--color-gold) 78%, #ffffff) 52%,
+    var(--color-gold) 70%,
+    var(--color-gold-deep)
+  );
+}
+
+/*
+  Placeholder for artwork that has not arrived yet. Hatched so it can never be
+  mistaken for a finished panel — delete `.slot` once the real photo is in.
+*/
+.slot {
+  background-color: var(--color-paper);
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-limestone) 0,
+    var(--color-limestone) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   Glow — an ambient blob of gold light for the corner of a section. Sized and
+   positioned by the consumer; only ever placed inside a wrapper that is
+   already `relative overflow-hidden`, so it can never affect layout or spill
+   past its section.
+   --------------------------------------------------------------------------- */
+.glow {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-gold-bright) 55%, transparent),
+    transparent 70%
+  );
+  filter: blur(60px);
+  opacity: 0.5;
+}
+
+/* ---------------------------------------------------------------------------
+   Dot-grid — the faintest possible field texture, for flat sections that
+   would otherwise read as bare. A decorative layer behind content, not a
+   section's own background, so it never fights with bg-paper/bg-limestone.
+   --------------------------------------------------------------------------- */
+.dot-grid {
+  position: absolute;
+  pointer-events: none;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-ink) 14%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* ---------------------------------------------------------------------------
+   Gold gradient fill — a soft light-catching sweep in place of a flat
+   --color-gold background, for primary surfaces (buttons, the mobile call
+   bar, the closing CTA band). Stops at --color-gold and never reaches
+   --color-gold-deep: ink text sits on top everywhere this is used, and ink
+   on gold-deep is only 2.79:1 — well under the 4.5:1 body text needs. Ink on
+   gold-bright/gold alone stays 7.6:1+ across the whole sweep.
+   --------------------------------------------------------------------------- */
+.gold-gradient {
+  background-image: linear-gradient(155deg, var(--color-gold-bright), var(--color-gold) 75%);
+}
+
+/* ---------------------------------------------------------------------------
+   Lift — hover elevation for cards and buttons: a small rise plus
+   --shadow-lift, in place of a color-only hover state. Transform is guarded
+   for reduced motion exactly like .rise; the shadow transition is not, since
+   a shadow change alone doesn't trigger motion sickness.
+   --------------------------------------------------------------------------- */
+.lift {
+  transition: box-shadow 200ms ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lift {
+    transition:
+      box-shadow 200ms ease,
+      transform 200ms ease;
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+  }
+}
+.lift:hover {
+  box-shadow: var(--shadow-lift);
+}
+
+/* ---------------------------------------------------------------------------
+   Photo scrim — a warm charcoal gradient laid over a background photograph
+   so text sitting above it keeps its contrast. Charcoal, not black, so it
+   reads as falloff rather than a cold overlay.
+   --------------------------------------------------------------------------- */
+.photo-scrim {
+  background-image: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--color-charcoal) 70%, transparent)
+  );
+}
