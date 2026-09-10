@@ -258,7 +258,7 @@
 }
 
 .aura {
-  --aura-size: 17rem;
+  --aura-size: 22rem;
   /* Light position: centred horizontally, swept vertically by scroll. */
   --ax: var(--px, 50%);
   --ay: var(--py, var(--sweep, 50%));
@@ -287,21 +287,20 @@
 /*
   The lit edge. The negative inset puts it over the card's own border rather
   than inside it, and z-index 3 keeps it above the content so an opaque child
-  (an image) can never cover the ring.
-
-  On a light card the hotspot has to get RICHER toward the light, not paler —
-  a pale gold edge on white has almost no luminance contrast and disappears.
+  (an image) can never cover the ring. The hotspot is the same rich gold as
+  the section backgrounds, brightening to gold-bright at its core so the
+  travelling glint reads clearly as it sweeps the corners.
 */
 .aura::before {
-  inset: -1.5px;
-  padding: 1.5px;
+  inset: -2.5px;
+  padding: 2.5px;
   z-index: 3;
   background: radial-gradient(
     var(--aura-size) circle at var(--ax) var(--ay),
-    var(--color-gold-deep),
-    var(--color-gold) 26%,
-    color-mix(in srgb, var(--color-gold) 45%, transparent) 48%,
-    transparent 74%
+    var(--color-gold-bright),
+    var(--color-gold) 32%,
+    color-mix(in srgb, var(--color-gold) 62%, transparent) 58%,
+    transparent 82%
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -315,13 +314,13 @@
 
 /* The bloom: warmth on the card face, fading out past its edge. */
 .aura::after {
-  inset: -1.25rem;
+  inset: -1.6rem;
   z-index: 0;
-  filter: blur(0.75rem);
+  filter: blur(0.85rem);
   background: radial-gradient(
-    calc(var(--aura-size) * 1.15) circle at var(--ax) var(--ay),
-    color-mix(in srgb, var(--color-gold) 26%, transparent),
-    transparent 64%
+    calc(var(--aura-size) * 1.35) circle at var(--ax) var(--ay),
+    color-mix(in srgb, var(--color-gold) 42%, transparent),
+    transparent 70%
   );
 }
 

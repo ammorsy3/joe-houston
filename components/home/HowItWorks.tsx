@@ -48,7 +48,7 @@ export function HowItWorks() {
             <li
               key={step.title}
               style={{ "--reveal-delay": `${index * 100}ms` } as CSSProperties}
-              className="aura lift reveal rounded-card border border-hairline bg-paper p-7 shadow-card lg:p-9"
+              className="aura lift reveal rounded-card border border-gold bg-paper p-7 shadow-card lg:p-9"
             >
               {/* A real sequence, so the numbers mean something. */}
               <div className="flex items-baseline gap-3">

@@ -60,7 +60,7 @@ export function WhatWeBuy() {
             <article
               key={card.title}
               style={{ "--reveal-delay": `${index * 100}ms` } as CSSProperties}
-              className="aura lift reveal flex flex-col rounded-card border border-hairline bg-paper shadow-card transition-colors hover:border-[color-mix(in_srgb,var(--color-gold)_40%,var(--color-hairline))]"
+              className="aura lift reveal flex flex-col rounded-card border border-gold bg-paper shadow-card"
             >
               <div className="relative aspect-[16/10] overflow-hidden rounded-t-card border-b border-hairline">
                 <Image

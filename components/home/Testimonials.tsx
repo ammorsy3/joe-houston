@@ -51,7 +51,7 @@ export function Testimonials() {
             <figure
               key={item.name}
               style={{ "--reveal-delay": `${index * 100}ms` } as CSSProperties}
-              className="aura lift reveal flex flex-col rounded-card border border-hairline bg-paper p-7 shadow-card lg:p-9"
+              className="aura lift reveal flex flex-col rounded-card border border-gold bg-paper p-7 shadow-card lg:p-9"
             >
               <blockquote className="grow">
                 <p className="display-sm text-[1.125rem] leading-[1.55] text-ink">
