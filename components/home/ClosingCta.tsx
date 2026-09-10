@@ -17,10 +17,10 @@ export function ClosingCta() {
         .grain and the content. contrast-[.4] brightness-[1.45] flattens the
         photo's darkest shadow pixels before the luminosity blend touches
         them: unfiltered, this photo's darkest pixel (~rgb(1,3,2)) would pull
-        ink-on-gold text contrast as low as 3.6:1 wherever it happened to
-        land under object-cover's crop. Filtered + at 12% opacity, the same
-        worst-case pixel keeps text at 4.6:1+ — verified against every text
-        weight used in this section (ink/80 through solid ink).
+        ink-on-gold text contrast well below AA wherever it happened to land
+        under object-cover's crop. Filtered + at 12% opacity, and with every
+        text run in this section set to solid ink (~6.7:1 on the gold before
+        the photo), the same worst-case pixel still clears 4.5:1.
       */}
       <Image
         src="/images/closing-cta-neighborhood.jpg"
@@ -43,7 +43,7 @@ export function ClosingCta() {
             >
               Find out what it&rsquo;s worth to us
             </h2>
-            <p className="mt-6 max-w-[52ch] text-[1.0625rem] leading-[1.65] text-ink/80">
+            <p className="mt-6 max-w-[52ch] text-[1.0625rem] leading-[1.65] text-ink">
               One call. A real number, and a straight answer about whether we are
               the right buyer for this property. If we are not, we will say so.
             </p>

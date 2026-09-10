@@ -56,8 +56,8 @@ export function HowItWorks() {
               {/* A real sequence, so the numbers mean something. */}
               <div className="flex items-baseline gap-3">
                 <span aria-hidden="true" className="relative inline-flex">
-                  <span className="absolute -inset-2 -z-[1] rounded-full bg-gold-soft" />
-                  <span className="tnum display-sm text-[2.5rem] leading-none text-gold">
+                  <span className="absolute -inset-2 -z-[1] rounded-full bg-terracotta-soft" />
+                  <span className="tnum display-sm text-[2.5rem] leading-none text-terracotta">
                     {index + 1}
                   </span>
                 </span>

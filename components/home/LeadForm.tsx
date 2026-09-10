@@ -102,12 +102,12 @@ export function LeadForm() {
       >
         <span
           aria-hidden="true"
-          className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold"
+          className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-terracotta"
         >
           <svg
       aria-hidden="true"
             viewBox="0 0 24 24"
-            className="h-5 w-5 text-gold"
+            className="h-5 w-5 text-terracotta"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.6"
@@ -447,7 +447,7 @@ function FieldError({
       <svg
         viewBox="0 0 16 16"
         aria-hidden="true"
-        className="mt-[0.1875rem] h-3.5 w-3.5 shrink-0 text-gold"
+        className="mt-[0.1875rem] h-3.5 w-3.5 shrink-0 text-terracotta"
         fill="none"
         stroke="currentColor"
         strokeWidth="1.5"

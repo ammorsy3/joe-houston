@@ -13,7 +13,7 @@ export function Tag({
   return (
     <span
       className={cn(
-        "inline-block border-l-2 border-gold bg-gold-soft/50 py-0.5 pl-2.5 text-[0.8125rem] leading-5 text-body",
+        "inline-block border-l-2 border-terracotta bg-terracotta-soft/50 py-0.5 pl-2.5 text-[0.8125rem] leading-5 text-body",
         className,
       )}
     >
