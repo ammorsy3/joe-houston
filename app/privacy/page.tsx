@@ -53,7 +53,7 @@ const SECTIONS = [
   {
     heading: "Your choices",
     body: [
-      `You can ask us what information we hold about you, ask us to correct it, or ask us to delete it. Write to the email address below and we will respond within a reasonable time. Depending on where you live, state law may give you additional rights.`,
+      `You can ask us what information we hold about you, ask us to correct it, or ask us to delete it. Contact us using the details below and we will respond within a reasonable time. Depending on where you live, state law may give you additional rights.`,
     ],
   },
   {
@@ -133,14 +133,6 @@ export default function PrivacyPage() {
             Questions about this policy, or want your information removed?
           </p>
           <ul className="mt-4 space-y-2 text-[1rem]">
-            <li>
-              <a
-                href={`mailto:${siteConfig.email}`}
-                className="text-ink underline decoration-hairline underline-offset-4 transition-colors hover:decoration-gold"
-              >
-                {siteConfig.email}
-              </a>
-            </li>
             <li>
               <a
                 href={telHref(siteConfig.phone.raw)}

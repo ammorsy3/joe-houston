@@ -30,7 +30,6 @@ export type SiteConfig = {
     /** What visitors actually see. `formatPhone(phone.raw)` produces this shape. */
     display: string;
   };
-  email: string;
   market: {
     /** Full coverage sentence, e.g. "Buying throughout Greater Austin". */
     line: string;
@@ -48,8 +47,8 @@ export type SiteConfig = {
 
 export const siteConfig: SiteConfig = {
   company: {
-    name: "Joe Houston",
-    wordmark: { primary: "Joe", accent: "Houston" },
+    name: "Cash 4 Homes",
+    wordmark: { primary: "Cash 4", accent: "Homes" },
     description:
       "A private real estate investor buying homes and small multifamily properties directly from owners, for cash.",
   },
@@ -57,7 +56,6 @@ export const siteConfig: SiteConfig = {
     raw: "5126960761",
     display: "(512) 696-0761",
   },
-  email: "jhouston@foresitecre.com",
   market: {
     line: "Buying throughout Austin and the surrounding Central Texas counties",
     short: "Austin, TX",

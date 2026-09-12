@@ -1,6 +1,3 @@
-import Image from "next/image";
-import type { CSSProperties } from "react";
-
 import { siteConfig } from "@/app/lib/site-config";
 import { telHref } from "@/app/lib/utils";
 import { Button } from "@/components/ui/Button";
@@ -39,36 +36,8 @@ export function GetOffer() {
           </div>
         </div>
 
-        {/* Form on the left, Joe on the right. */}
-        <div className="mt-14 grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-center lg:gap-16 lg:mt-16">
-          <div className="reveal">
-            <LeadForm />
-          </div>
-
-          {/* A face for the "call us directly" line above — the person who
-              actually picks up. */}
-          <figure
-            className="reveal"
-            style={{ "--reveal-delay": "100ms" } as CSSProperties}
-          >
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-[22rem] overflow-hidden rounded-card border border-hairline shadow-panel">
-              <div
-                aria-hidden="true"
-                className="gilded absolute inset-x-0 top-0 z-10 h-[3px]"
-              />
-              <Image
-                src="/images/joe-houston.jpg"
-                alt="Joe Houston"
-                fill
-                sizes="(min-width: 1024px) 22rem, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <figcaption className="mt-4 text-center text-[0.9375rem] leading-relaxed text-ink/85">
-              <span className="block font-semibold text-ink">Joe Houston</span>
-              Private real estate investor, {siteConfig.market.short}
-            </figcaption>
-          </figure>
+        <div className="reveal mx-auto mt-14 max-w-2xl lg:mt-16">
+          <LeadForm />
         </div>
       </div>
     </section>

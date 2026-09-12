@@ -34,14 +34,6 @@ export function Footer() {
                     {siteConfig.phone.display}
                   </a>
                 </li>
-                <li>
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="text-body transition-colors hover:text-ink"
-                  >
-                    {siteConfig.email}
-                  </a>
-                </li>
                 <li className="text-body">{siteConfig.hours.line}</li>
               </ul>
             </div>
