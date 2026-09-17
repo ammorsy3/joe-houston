@@ -16,19 +16,19 @@ const TESTIMONIALS = [
     quote:
       "The auction date was five weeks out and my lender had stopped returning calls. They walked the house on a Tuesday, had a number to me Wednesday, and we closed before the sale date.",
     name: "Marcus T.",
-    context: "Pre-foreclosure · [NEIGHBORHOOD] · closed in 19 days",
+    context: "Pre-foreclosure · closed in 19 days",
   },
   {
     quote:
       "My mother’s house had forty years of belongings in it and I live three states away. I did not have to clear out a single room. They took it exactly as it was.",
     name: "Denise R.",
-    context: "Inherited · [NEIGHBORHOOD] · closed in 26 days",
+    context: "Inherited · closed in 26 days",
   },
   {
     quote:
       "Two of the four units were vacant and I was done being a landlord. No agent, no repair list, no buyer’s lender killing it at the last minute. The number they opened with was the number we closed at.",
     name: "Ray P.",
-    context: "Fourplex · [NEIGHBORHOOD] · closed in 14 days",
+    context: "Fourplex · closed in 14 days",
   },
 ];
 
